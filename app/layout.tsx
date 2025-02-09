@@ -26,9 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lexendExa.variable} ${lexendDeca.variable} antialiased`}
-      >
+      <body className={`${lexendExa.variable} ${lexendDeca.variable} antialiased`}>
         {children}
       </body>
     </html>
