@@ -7,7 +7,7 @@ import LocomotiveScrollProvider from '@/components/locomotiveScroll';
 import InteractiveCursor from '@/components/interactiveCursor';
 import { useEffect, useState } from 'react';
 import Contact from '@/components/contact';
-
+import MainSection from '@/components/mainSection';
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,6 +25,7 @@ export default function Home() {
     <div className="cursor-none">
       <InteractiveCursor />
       <LocomotiveScrollProvider>
+      
       <div className="relative min-h-screen overflow-hidden">
           {/* Background with blur effect */}
           <div 
@@ -39,6 +40,9 @@ export default function Home() {
           <div className="relative z-20">
             <NavBar />
             <div className="flex flex-col min-h-screen">
+              <section data-scroll-section className="min-h-screen">
+                <MainSection />
+              </section>
               <section data-scroll-section className="min-h-screen">
                 <AboutUs />
               </section>
