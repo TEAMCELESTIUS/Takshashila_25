@@ -3,34 +3,32 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-
-interface Event {
-  id: number
-  title: string
-  date: string
-  location: string
-  image: string
-  description: string
-  registrationLink: string
-  category: string
-}
+import EventPopup from "./eventPopup";
 
 interface EventCardProps {
-  event: Event
+  title: string;
+  date: string;
+  location: string;
+  image: string;
+  description: string;
+  registrationLink: string;
+  category: string;
 }
 
-export default function EventCard({ event }: EventCardProps) {
+export default function EventCard({ title, date, location, image, description, category }: EventCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
+    <>
     <div
       className="relative w-full h-96 overflow-hidden rounded-lg shadow-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Image
-        src={event.image || "/placeholder.svg"}
-        alt={event.title}
+        src={image || "/placeholder.svg"}
+        alt={title}
         layout="fill"
         objectFit="cover"
         className="transition-transform duration-300 ease-in-out transform hover:scale-110"
@@ -42,17 +40,18 @@ export default function EventCard({ event }: EventCardProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h3 className="text-2xl text-white relative pb-4 font-lexend">{event.title}</h3>
-          <p className="text-white mb-2">{event.date}</p>
-          <p className="text-white mb-2">{event.location}</p>
-          <p className="text-white">{event.description}</p>
+          <h3 className="text-2xl text-white relative pb-4 font-lexend">{title}</h3>
+          <p className="text-white mb-2">{date}</p>
+          <p className="text-white mb-2">{location}</p>
+          <p className="text-white">{description}</p>
         </div>
-        <button className="event-button bg-white text-black py-2 px-4 rounded self-start overflow-hidden">
+        <button onClick={() => setShowPopup(true)}
+className="button bg-white text-black py-2 px-4 rounded self-start overflow-hidden">
           <span className="inline-block">
             {"VIEW MORE".split("").map((letter, index) => (
               <motion.span
                 key={index}
-                className="event-letter inline-block"
+                className="letter inline-block"
                 initial={{ rotateX: 0, opacity: 1 }}
                 animate={{ rotateX: isHovered ? 360 : 0, opacity: 1 }}
                 transition={{ duration: 1.0, delay: index * 0.1 }}
@@ -64,9 +63,22 @@ export default function EventCard({ event }: EventCardProps) {
         </button>
       </motion.div>
       <div className="absolute top-0 left-0 p-4 z-10">
-        <h3 className="text-2xl text-white relative pb-4 font-lexend">{event.title}</h3>
+        <h3 className="text-2xl text-white relative pb-4 font-lexend">{title}</h3>
       </div>
     </div>
+
+{showPopup && (
+  <EventPopup
+    id = {title}
+    title={title}
+    date={date}
+    location={location}
+    description={description}
+    category={category}
+    onClose={() => setShowPopup(false)}
+  />
+)}
+</>
   )
 }
 
