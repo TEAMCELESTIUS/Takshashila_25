@@ -87,3 +87,8 @@ body {
 .animate-scroll:hover {
   animation-play-state: paused;
 }
+
+.event-button:hover .event-letter {
+  transform: rotateX(360deg);
+  opacity: 1;
+}
