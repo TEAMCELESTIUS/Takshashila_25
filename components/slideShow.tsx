@@ -47,7 +47,7 @@ const SlideShow: React.FC<SlideShowProps> = ({
   }
 
   return (
-    <div className="relative w-full overflow-hidden" style={{ height }}>
+    <div className=" relative w-full overflow-hidden" style={{ height }}>
       {images.map((image, index) => (
         <div
           key={index}

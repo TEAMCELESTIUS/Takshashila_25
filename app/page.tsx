@@ -39,22 +39,15 @@ export default function Home() {
 
           <div className="relative z-20">
             <NavBar />
-            <div className="flex flex-col min-h-screen">
-              <section data-scroll-section className="min-h-screen">
+            <div className="flex flex-col min-h-screen" data-scroll-container>
+              
                 <MainSection />
-              </section>
-              <section data-scroll-section className="min-h-screen">
                 <AboutUs />
-              </section>
-              <section data-scroll-section className="min-h-screen">
                 <SponsorSlider />
-              </section>
-              
                 <Contact />
-              
-              <section data-scroll-section>
+                
                 <Footer />
-              </section>
+
             </div>
           </div>
         </div>

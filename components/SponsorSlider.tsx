@@ -21,6 +21,7 @@ interface SponsorSliderProps {
 
 export default function SponsorSlider({ speed = 100 }: SponsorSliderProps) {
   return (
+    <section  className="z-10 backdrop-blur-sm flex flex-col items-center justify-center py-16 px-4" data-scroll-section>
     <div className="w-full relative overflow-hidden">
       <div
         className="flex animate-scroll"
@@ -48,5 +49,6 @@ export default function SponsorSlider({ speed = 100 }: SponsorSliderProps) {
         ))}
       </div>
     </div>
+    </section>
   );
 }

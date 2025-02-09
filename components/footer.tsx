@@ -2,7 +2,7 @@ import { FaInstagram, FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/f
 
 const Footer = () => {
   return (
-    <footer className="relative z-50 bg-black/40 backdrop-blur-md py-16 mt-20">
+    <section className="relative z-50 bg-black/40 backdrop-blur-md py-16 mt-20" data-scroll-section>
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Socials */}
         <div className="space-y-4">
@@ -91,7 +91,7 @@ const Footer = () => {
           © {new Date().getFullYear()} Takshashila. All rights reserved.
         </p>
       </div>
-    </footer>
+    </section>
   );
 };
 
