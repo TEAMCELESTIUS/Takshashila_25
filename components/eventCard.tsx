@@ -1,0 +1,72 @@
+"use client"
+
+import { useState } from "react"
+import Image from "next/image"
+import { motion } from "framer-motion"
+
+interface Event {
+  id: number
+  title: string
+  date: string
+  location: string
+  image: string
+  description: string
+  registrationLink: string
+  category: string
+}
+
+interface EventCardProps {
+  event: Event
+}
+
+export default function EventCard({ event }: EventCardProps) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <div
+      className="relative w-full h-96 overflow-hidden rounded-lg shadow-lg"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src={event.image || "/placeholder.svg"}
+        alt={event.title}
+        layout="fill"
+        objectFit="cover"
+        className="transition-transform duration-300 ease-in-out transform hover:scale-110"
+      />
+      <motion.div
+        className="absolute inset-0 bg-black bg-opacity-70 p-4 flex flex-col justify-between"
+        initial={{ x: "-100%" }}
+        animate={{ x: isHovered ? 0 : "-100%" }}
+        transition={{ duration: 0.3 }}
+      >
+        <div>
+          <h3 className="text-2xl text-white relative pb-4 font-lexend">{event.title}</h3>
+          <p className="text-white mb-2">{event.date}</p>
+          <p className="text-white mb-2">{event.location}</p>
+          <p className="text-white">{event.description}</p>
+        </div>
+        <button className="event-button bg-white text-black py-2 px-4 rounded self-start overflow-hidden">
+          <span className="inline-block">
+            {"VIEW MORE".split("").map((letter, index) => (
+              <motion.span
+                key={index}
+                className="event-letter inline-block"
+                initial={{ rotateX: 0, opacity: 1 }}
+                animate={{ rotateX: isHovered ? 360 : 0, opacity: 1 }}
+                transition={{ duration: 1.0, delay: index * 0.1 }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+          </span>
+        </button>
+      </motion.div>
+      <div className="absolute top-0 left-0 p-4 z-10">
+        <h3 className="text-2xl text-white relative pb-4 font-lexend">{event.title}</h3>
+      </div>
+    </div>
+  )
+}
+
