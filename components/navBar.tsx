@@ -30,20 +30,18 @@ export default function NavBar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-10 ">
-          <Link href="#explore" className="text-white hover:text-gray-300 text-lg font-lexend">
-            Explore
-          </Link>
-          <Link href="#proshows" className="text-white hover:text-gray-300 text-lg font-lexend">
-            Pro Shows
+          
+          <Link href="#home" className="text-white hover:text-gray-300 text-lg font-lexend">
+            Home
           </Link>
           <Link href="#about" className="text-white hover:text-gray-300 text-lg font-lexend">
             About
           </Link>
+          <Link href="Events" className="text-white hover:text-gray-300 text-lg font-lexend">
+            Events
+          </Link>
           <Link href="#contact" className="text-white hover:text-gray-300 text-lg font-lexend">
             Contact
-          </Link>
-          <Link href="#events" className="text-white hover:text-gray-300 text-lg font-lexend">
-            Events
           </Link>
         </div>
 
@@ -57,18 +55,11 @@ export default function NavBar() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-black bg-opacity-90 p-5">
           <Link
-            href="#explore"
+            href="#home"
             className="block text-white text-lg font-lexend py-2 hover:text-gray-300"
             onClick={toggleMobileMenu}
           >
-            Explore
-          </Link>
-          <Link
-            href="#proshows"
-            className="block text-white text-lg font-lexend py-2 hover:text-gray-300"
-            onClick={toggleMobileMenu}
-          >
-            Pro Shows
+            Home
           </Link>
           <Link
             href="#about"
@@ -76,6 +67,13 @@ export default function NavBar() {
             onClick={toggleMobileMenu}
           >
             About
+          </Link>
+          <Link
+            href="#events"
+            className="block text-white text-lg font-lexend py-2 hover:text-gray-300"
+            onClick={toggleMobileMenu}
+          >
+            Events
           </Link>
           <Link
             href="#contact"

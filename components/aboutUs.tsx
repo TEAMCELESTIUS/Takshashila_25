@@ -12,7 +12,7 @@ const AboutSection: React.FC = () => {
       className="min-h-[180vh] bg-grey/50 bg-opacity-40 z-10 backdrop-blur-sm flex flex-col items-center justify-center py-24 px-4 md:px-16 overflow-hidden"
       data-scroll-section
     >
-      <h1 className="text-5xl font-lexend text-white mb-20">ABOUT US</h1>
+      {/* <h1 className="text-5xl font-lexend text-white mb-20">ABOUT US</h1> */}
 
       {/* CIT Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
