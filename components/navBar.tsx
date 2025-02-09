@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
-export default function navBar() {
+export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
