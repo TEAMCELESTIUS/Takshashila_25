@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.svg-container {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.svg-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    animation: fill-sequence 4s ease-in-out forwards;
+}
+
+.svg-foreground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    animation: fill-up 2s ease-in-out 4s forwards, glitch 0.5s infinite 4s;
+}
+
+@keyframes fill-sequence {
+    0% {
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    50% {
+        clip-path: polygon(100% 100%, 100% 0, 0 0, 0 100%);
+    }
+
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes fill-up {
+    0% {
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes glitch {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.svg-final {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.svg-final.active .svg-background,
+.svg-final.active .svg-foreground {
+    animation: none;
+    clip-path: circle(0% at 50% 50%);
+    animation: fill-from-center 2s ease-in-out forwards;
+}
+
+@keyframes fill-from-center {
+    0% {
+        clip-path: circle(0% at 50% 50%);
+    }
+
+    100% {
+        clip-path: circle(100% at 50% 50%);
+    }
+}
