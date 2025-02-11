@@ -66,7 +66,7 @@ export default function Events() {
   }, []);
 
   return (
-    <div>
+    <div className="curser-none">
       <NavBar />
       <InteractiveCursor />
       
