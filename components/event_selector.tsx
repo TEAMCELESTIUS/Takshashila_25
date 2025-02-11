@@ -30,6 +30,7 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
   const soundBarRefs = useRef<(HTMLDivElement | null)[]>([])
   const [isMobile, setIsMobile] = useState(false)
   const [isClient, setIsClient] = useState(false)
+  const [isVinylHovered, setIsVinylHovered] = useState(false)
 
   const categories = useMemo(() => ['All', 'Technical', 'Non-Technical', 'Workshops'], [])
 
@@ -139,12 +140,14 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
         onMouseEnter={() => {
           if (!isMobile) {
             setIsVinylExpanded(true)
+            setIsVinylHovered(true)
             resetWaveAnimation()
           }
         }}
         onMouseLeave={() => {
           if (!isMobile) {
             setIsVinylExpanded(false)
+            setIsVinylHovered(false)
           }
         }}
         onClick={() => {
@@ -205,10 +208,11 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
         {soundBars}
       </div>
 
-      <div className={styles.eventGrid}>
+      <div className={`${styles.eventGrid} ${isVinylHovered ? styles.behindVinyl : ''}`}>
         {filteredEvents.map(event => (
           <EventCard
             key={event.id}
+            isVinylHovered={isVinylHovered}
             title={event.title}
             date={event.date}
             location={event.venue || 'TBA'}
@@ -216,7 +220,6 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
             description={event.description}
             registrationLink={event.registerLink || 'TBA' }
             category={event.category}
-            
           />
         ))}
       </div>
