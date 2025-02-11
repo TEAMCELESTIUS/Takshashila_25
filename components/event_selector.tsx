@@ -6,40 +6,32 @@ import styles from "./event_selector.module.css"
 import Image from 'next/image'
 import EventCard from './eventCard'
 
-interface EventItem {
-  id: string
+interface Event {
+  id: number
   title: string
   description: string
-  category: 'Technical' | 'Non-Technical' | 'Pro-Shows' | 'All'
+  category: 'Technical' | 'Non-Technical' | 'Workshops' | 'All'
   venue?: string
   date: string
   image: string
   registerLink?: string
 }
 
-const Events: React.FC = () => {
+interface EventsdiscProps {
+  events: Event[];
+}
+
+const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
   const [active, setActive] = useState<string>('All')
   const [isVinylExpanded, setIsVinylExpanded] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null)
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const vinylRef = useRef<HTMLDivElement>(null)
   const [waveKey, setWaveKey] = useState(0)
   const soundBarRefs = useRef<(HTMLDivElement | null)[]>([])
   const [isMobile, setIsMobile] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
-  const categories = ['All', 'Technical', 'Non-Technical', 'Pro-Shows']
-
-  const events: EventItem[] = useMemo(() => {
-    return Array.from({ length: 60 }, (_, i) => ({
-      id: `event-${i + 1}`,
-      title: `Event ${i + 1}`,
-      description: "Join us for an amazing experience filled with excitement and entertainment. This event promises to be unforgettable!",
-      category: (['Technical', 'Non-Technical', 'Pro-Shows'] as const)[i % 3],
-      venue: `Venue ${Math.floor(i / 10) + 1}`,
-      date: new Date(2024, Math.floor(i / 5), (i % 28) + 1).toLocaleDateString(),
-      image: '/images/coke_zero.jpg',
-      registerLink: "#"
-    }))
-  }, [])
+  const categories = useMemo(() => ['All', 'Technical', 'Non-Technical', 'Workshops'], [])
 
   const filteredEvents = events.filter(event => 
     active === 'All' ? true : event.category === active
@@ -60,6 +52,7 @@ const Events: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsClient(true);
     preloadLogo();
     const setDiameter = () => {
       if (vinylRef.current) {
@@ -96,7 +89,7 @@ const Events: React.FC = () => {
         <div
           key={index}
           className={styles.soundBar}
-          ref={el => soundBarRefs.current[index] = el}
+          ref={el => { soundBarRefs.current[index] = el; }}
           style={{
             '--i': index,
             '--random-height': initialHeight,
@@ -134,6 +127,10 @@ const Events: React.FC = () => {
     const after = categories.slice(activeIndex + 1);
     return [categories[activeIndex], ...before, ...after];
   }, [active, categories]);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -214,11 +211,12 @@ const Events: React.FC = () => {
             key={event.id}
             title={event.title}
             date={event.date}
-            location={event.venue}
+            location={event.venue || 'TBA'}
             image={event.image}
             description={event.description}
-            registrationLink={event.registerLink}
+            registrationLink={event.registerLink || 'TBA' }
             category={event.category}
+            
           />
         ))}
       </div>
@@ -241,4 +239,4 @@ const Events: React.FC = () => {
   )
 }
 
-export default Events 
+export default Eventsdisc
