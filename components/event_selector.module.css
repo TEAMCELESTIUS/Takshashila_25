@@ -1,0 +1,652 @@
+/* Move font import to top and add font-display */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap&font-display=swap');
+
+/* Base container */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg, 
+    #004953 0%,
+    #004d40 50%,
+    #00695c 100%
+  );
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Black blur overlay */
+.blurOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: all 0.6s ease;
+  pointer-events: none;
+  z-index: 10; /* Above background (1), below vinyl (20) and waves (16) */
+}
+
+/* Show blur when vinyl is hovered */
+.vinylWrapper:hover ~ .blurOverlay {
+  opacity: 1;
+}
+
+/* Event grid */
+.eventGrid {
+  position: relative;
+  z-index: 5;
+}
+
+/* Vinyl and categories */
+.vinylWrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal */
+.modal {
+  z-index: 30;
+}
+
+/* Sound wave */
+.soundWave {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 175px;
+  width: 100vw;
+  z-index: 16;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  padding: 0;
+}
+
+/* Make vinyl the trigger */
+.vinyl {
+  position: absolute;
+  left: -85%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52vw;
+  height: 52vw;
+  border-radius: 50%;
+  background: linear-gradient(30deg, #000000, #1a1a1a);
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  transition: all 0.5s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 3;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateY(-50%) translateZ(0);
+}
+
+.vinyl::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 25%;
+  background: linear-gradient(45deg, #ff4500, #ff8700);
+  border-radius: 50%;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 20px rgba(255,69,0,0.4);
+  background-image: 
+    repeating-conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      rgba(255, 255, 255, 0.1) 30deg,
+      rgba(255, 255, 255, 0.1) 31deg
+    ),
+    linear-gradient(45deg, #ff4500, #ff8700);
+  z-index: 1;
+}
+
+.vinylInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+
+.vinylInner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 95%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.vinylInner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: 
+    /* Fine detail lines */
+    repeating-radial-gradient(
+      circle at center,
+      transparent 0,
+      transparent 4px,
+      rgba(255, 255, 255, 0.1) 4.5px,
+      rgba(255, 255, 255, 0.1) 5px
+    ),
+    /* Main grooves (3-4 lines) */
+    repeating-radial-gradient(
+      circle at center,
+      transparent 0,
+      transparent 45px,
+      rgba(255, 255, 255, 0.2) 45.5px,
+      rgba(255, 255, 255, 0.2) 46px
+    ),
+    /* Base color */
+    linear-gradient(45deg, #000000, #1a1a1a);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Update triangle indicator on vinyl */
+.vinyl::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) rotate(180deg);
+  width: 0;
+  height: 0;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 28px solid #ff4500;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.5));
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 22;
+}
+
+/* Make triangle disappear on hover */
+.vinyl:hover::after,
+.vinylWrapper:hover .vinyl::after {
+  opacity: 0;
+  transform: translateY(-50%) rotate(180deg) scale(0.5);
+}
+
+/* Show categories when vinyl is hovered */
+.vinyl:hover ~ .categoriesContainer {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Keep vinyl expanded when vinyl is hovered */
+.vinyl:hover,
+.vinylWrapper:hover .vinyl,
+.categoriesContainer:hover ~ .vinyl {
+  left: -40%;
+  transform: translateY(-50%) translateZ(0);
+  background: linear-gradient(45deg, #000000, #1a1a1a);
+  box-shadow: 
+    0 0 50px rgba(0,0,0,0.5),
+    inset 0 0 50px rgba(255,255,255,0.1);
+  animation: rotateVinyl 10s linear infinite;
+  will-change: transform;
+}
+
+/* Keep everything active while categories are being interacted with */
+.categoriesContainer:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.categoriesContainer:hover ~ .vinyl {
+  left: -40%;
+  transform: translateY(-50%) translateZ(0);
+  background: linear-gradient(45deg, #000000, #1a1a1a);
+  box-shadow: 
+    0 0 50px rgba(0,0,0,0.5),
+    inset 0 0 50px rgba(255,255,255,0.1);
+  animation: rotateVinyl 10s linear infinite;
+  will-change: transform;
+}
+
+/* Categories container */
+.categoriesContainer {
+  position: absolute;
+  left: 38%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 21;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: auto;
+}
+
+/* Update categories styles */
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+/* Animate categories in when vinyl is expanded */
+.vinyl:hover ~ .categoriesContainer .categories {
+  transform: none;
+}
+
+/* Category buttons */
+.category {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  padding: 5px 15px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.category:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.category.active {
+  opacity: 1;
+  color: #ff4500;
+  transform: scale(1.1);
+  text-shadow: 0 0 10px rgba(255,69,0,0.5);
+}
+
+/* Update Event Grid Styles */
+.eventGrid {
+  margin-left: 25%;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+  isolation: isolate;
+}
+
+/* Optional: Slightly dim the events when vinyl is expanded */
+.vinyl.expanded ~ .eventGrid {
+  opacity: 0.8;
+}
+
+/* Remove old eventCard styles since we're using the new EventCard component */
+.eventCard,
+.eventDetails,
+.register {
+  /* Remove these style blocks as they're now handled by EventCard.css */
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+
+.modalContent {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Sound Wave Animation */
+.soundBar {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.85);
+  height: 100%;
+  border-radius: 4px;
+  transform-origin: bottom;
+  animation: soundWave 1.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.02s);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  will-change: transform;
+  transform: scaleY(0.05) translateZ(0);
+}
+
+@keyframes soundWave {
+  0% {
+    transform: scaleY(0.05);
+  }
+  50% {
+    transform: scaleY(var(--random-height));
+  }
+  100% {
+    transform: scaleY(0.05);
+  }
+}
+
+@keyframes rotateVinyl {
+  from {
+    transform: translateY(-50%) translateZ(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) translateZ(0) rotate(360deg);
+  }
+}
+
+@keyframes counterRotate {
+  from {
+    transform: rotate(-15deg);
+  }
+  to {
+    transform: rotate(345deg);
+  }
+}
+
+.vinyl:hover ~ .blurOverlay {
+  opacity: 1;
+}
+
+.vinyl:hover ~ .soundWave {
+  opacity: 1;
+}
+
+/* Update vinyl and categories interaction */
+.vinylWrapper:hover .vinyl {
+  left: -40%;
+  transform: translateY(-50%) translateZ(0);
+  background: linear-gradient(45deg, #000000, #1a1a1a);
+  box-shadow: 
+    0 0 50px rgba(0,0,0,0.5),
+    inset 0 0 50px rgba(255,255,255,0.1);
+  animation: rotateVinyl 10s linear infinite;
+  will-change: transform;
+}
+
+.vinylWrapper:hover .categoriesContainer {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Remove the old hover states that were causing issues */
+.vinyl:hover ~ .categoriesContainer,
+.categoriesContainer:hover,
+.categoriesContainer:hover ~ .vinyl {
+}
+
+.categoriesContainer {
+  pointer-events: auto;
+}
+
+/* Show sound wave when vinyl wrapper is hovered */
+.vinylWrapper:hover ~ .soundWave {
+  opacity: 1;
+}
+
+/* Remove the old sound wave trigger */
+.vinyl:hover ~ .soundWave {
+  opacity: 0;
+}
+
+/* Update logo container styles */
+.logoContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24%;
+  height: 24%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: all 0.5s ease;
+}
+
+/* Remove the counter-rotation animation */
+.vinylWrapper:hover .logoContainer {
+  animation: none; /* Remove counter-rotation */
+}
+
+/* Update the Image styles */
+.logoContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Static categories container */
+.staticCategories {
+  position: absolute;
+  left: 5%; /* Adjust to fit next to the triangle */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 21;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+  text-align: center; /* Center-align text */
+  font-family: 'Pacifico', cursive; /* Apply creative font */
+}
+
+/* Static category styles */
+.staticCategory {
+  display: block;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold; /* Make text bold */
+  margin: 10px 0;
+  transition: all 0.3s ease;
+  opacity: 0.45; /* Default opacity for non-active items */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Opacity levels for static categories */
+.staticCategory.middle {
+  opacity: 0.73; /* Active category opacity */
+  transform: scale(1.1); /* Slightly larger */
+  color: #ff4500; /* Highlight active category */
+  text-shadow: 3px 3px 6px rgba(255, 69, 0, 0.7); /* Enhanced shadow for active */
+}
+
+/* Hover effect for categories */
+.staticCategory:hover {
+  transform: scale(1.15);
+  color: #ff8700;
+  text-shadow: 4px 4px 8px rgba(255, 135, 0, 0.8);
+}
+
+/* Hide static categories when vinyl is hovered */
+.vinyl:hover ~ .staticCategories,
+.vinylWrapper:hover .staticCategories {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Mobile-first media queries */
+@media (max-width: 768px) {
+  /* Adjust vinyl size and position for mobile */
+  .vinylWrapper {
+    position: fixed;
+    width: 100%;
+    height: 180px;
+    top: 0;
+    bottom: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+  }
+
+  .vinyl {
+    position: relative;
+    left: 20px;
+    top: 0;
+    width: 140px;
+    height: 140px;
+    transform: none;
+  }
+
+  /* Adjust vinyl expansion for mobile */
+  .vinyl:hover,
+  .vinylWrapper:hover .vinyl,
+  .categoriesContainer:hover ~ .vinyl {
+    left: 20px;
+    transform: none;
+    animation: rotateVinylMobile 10s linear infinite;
+  }
+
+  /* Adjust static categories for mobile */
+  .staticCategories {
+    left: auto;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+  }
+
+  .staticCategory {
+    font-size: 1rem;
+    margin: 8px 0;
+  }
+
+  /* Adjust expanded categories for mobile */
+  .categoriesContainer {
+    left: auto;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .categories {
+    gap: 15px;
+  }
+
+  .category {
+    font-size: 1rem;
+    padding: 4px 12px;
+  }
+
+  /* Adjust event grid for mobile */
+  .eventGrid {
+    margin-left: 0;
+    margin-top: 200px;
+    padding: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust sound wave for mobile */
+  .soundWave {
+    height: 100px;
+    top: 180px;
+  }
+
+  /* Mobile-specific animations */
+  @keyframes rotateVinylMobile {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Adjust blur overlay for mobile */
+  .blurOverlay {
+    top: 180px;
+  }
+
+  /* Hide sound bars on very small screens */
+  @media (max-width: 480px) {
+    .soundWave {
+      display: none;
+    }
+  }
+}
+
+/* Tablet-specific adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .vinylWrapper {
+    width: 35%;
+  }
+
+  .vinyl {
+    width: 40vw;
+    height: 40vw;
+  }
+
+  .eventGrid {
+    margin-left: 20%;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* Landscape mode adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .vinylWrapper {
+    height: 140px;
+  }
+
+  .vinyl {
+    width: 100px;
+    height: 100px;
+  }
+
+  .eventGrid {
+    margin-top: 160px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .soundWave {
+    top: 140px;
+    height: 80px;
+  }
+}
