@@ -31,7 +31,7 @@ export default function NavBar() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-10 ">
           
-          <Link href="#home" className="text-white hover:text-gray-300 text-lg font-lexend">
+          <Link href="/" className="text-white hover:text-gray-300 text-lg font-lexend">
             Home
           </Link>
           <Link href="#about" className="text-white hover:text-gray-300 text-lg font-lexend">
@@ -69,7 +69,7 @@ export default function NavBar() {
             About
           </Link>
           <Link
-            href="#events"
+            href="#eventroller"
             className="block text-white text-lg font-lexend py-2 hover:text-gray-300"
             onClick={toggleMobileMenu}
           >

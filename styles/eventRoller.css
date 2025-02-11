@@ -1,0 +1,250 @@
+@import url('https://fonts.cdnfonts.com/css/bebas-neue');
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+.slider-container {
+    margin: 0;
+    font-size: 15px;
+    background-color: transparent;
+    min-height: 100vh;
+}
+
+.slider {
+    color: #eee;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    margin-top: -70px;
+}
+
+.slider .list .item {
+    position: absolute;
+    inset: 0 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.slider .list .item.active {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.slider .list .item .content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 350px 400px;
+    gap: 200px;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    font-family: Poppins;
+    text-shadow: 0 0 80px #000;
+}
+
+.slider .list .item .content h2 {
+    font-size: 7em;
+    font-family: 'Bebas Neue', sans-serif;
+    line-height: 0.9em;
+    transform: translateY(-100%);
+    transition: transform 1s;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    text-align: left;
+    margin-left: -50px;
+    padding-right: 20px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.slider .list .item .content div.paragraphs {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: right;
+    margin-right: -150px;
+    max-width: 350px;
+    margin-top: 120px;
+    position: relative;
+    right: -50px;
+}
+
+.slider .list .item .content p {
+    text-align: right;
+    padding-left: 40px;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    margin: 0;
+    font-size: 0.95em;
+    word-wrap: break-word;
+    hyphens: auto;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 300;
+}
+
+/* Image styles */
+.slider .list .item .image {
+    flex-shrink: 0;
+    width: var(--diameter);
+    height: var(--diameter);
+    background-image: var(--url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotate(-60deg);
+    position: relative;
+    transition: 1s;
+    filter: blur(30px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 65%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 65%);
+    opacity: 0.9;
+}
+
+.slider .item.active .image {
+    filter: blur(0px);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+/* Image effects */
+.slider .list .item .image::before, 
+.slider .list .item .image::after {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    content: '';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-120deg);
+    background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+        var(--url);
+    background-size: cover;
+    background-position: center;
+    transition: 1s;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 65%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 65%);
+}
+
+.slider .list .item .image::after {
+    width: 30%;
+    height: 30%;
+    background-image: var(--url);
+    transform: translate(-50%, -50%) rotate(-170deg);
+    background-size: cover;
+    background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+        var(--url);
+}
+
+/* Active state transitions */
+.slider .item.active .image::before,
+.slider .item.active .image::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.slider .list .item.active .content h2 {
+    transform: translateY(0);
+}
+
+/* Navigation arrows */
+.arrows {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 30px;
+    width: min(1200px, 90vw);
+    display: flex;
+    justify-content: space-between;
+}
+
+.arrows button {
+    all: unset;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    color: #fff;
+}
+
+/* Hover effects */
+.slider .list .item.active .content h2:hover {
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.slider .list .item.active .content div.paragraphs:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.slider .list .item.active .content div.paragraphs:hover p {
+    opacity: 0.9;
+}
+
+.arrows button:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.slider .item.active:hover .image {
+    filter: blur(0px) brightness(1.1);
+}
+
+/* Responsive design */
+@media all and (max-width: 1024px) {
+    .slider .list .item .content {
+        grid-template-columns: 300px 350px;
+        gap: 150px;
+    }
+    .slider .list .item .content h2 {
+        font-size: 5em;
+        margin-left: -25px;
+    }
+    .slider .list .item .content div.paragraphs {
+        margin-top: 100px;
+        padding-right: 30px;
+        right: -30px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .slider .list .item .content {
+        grid-template-columns: 90%;
+        gap: 15px;
+        top: 10%;
+    }
+    .slider .list .item .content h2 {
+        font-size: 2.5em;
+        margin-left: 0;
+        text-align: center;
+        padding-right: 0;
+    }
+    .slider .list .item .content div.paragraphs {
+        margin-top: 50px;
+        padding-right: 0;
+        right: 0;
+        margin: 50px auto 0;
+    }
+    .slider .list .item .content p {
+        font-size: 0.8em;
+        line-height: 1.6;
+    }
+}
+
+.d-none {
+    opacity: 0;
+    pointer-events: none;
+}

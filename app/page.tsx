@@ -8,6 +8,7 @@ import InteractiveCursor from '@/components/interactiveCursor';
 import { useEffect, useState } from 'react';
 import Contact from '@/components/contact';
 import MainSection from '@/components/mainSection';
+import EventRoller from '@/components/eventRoller';
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -43,11 +44,10 @@ export default function Home() {
               
                 <MainSection />
                 <AboutUs />
+                <EventRoller />
                 <SponsorSlider />
                 <Contact />
-                
                 <Footer />
-
             </div>
           </div>
         </div>

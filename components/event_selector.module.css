@@ -115,7 +115,7 @@
       rgba(255, 255, 255, 0.1) 30deg,
       rgba(255, 255, 255, 0.1) 31deg
     ),
-    linear-gradient(45deg, #ff4500, #ff8700);
+    linear-gradient(45deg, #28cc6a, #1c4d29);
   z-index: 1;
 }
 
@@ -315,11 +315,6 @@
 }
 
 /* Remove old eventCard styles since we're using the new EventCard component */
-.eventCard,
-.eventDetails,
-.register {
-  /* Remove these style blocks as they're now handled by EventCard.css */
-}
 
 /* Modal Styles */
 .modal {
@@ -414,10 +409,6 @@
 }
 
 /* Remove the old hover states that were causing issues */
-.vinyl:hover ~ .categoriesContainer,
-.categoriesContainer:hover,
-.categoriesContainer:hover ~ .vinyl {
-}
 
 .categoriesContainer {
   pointer-events: auto;
