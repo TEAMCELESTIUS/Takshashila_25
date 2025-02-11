@@ -25,7 +25,7 @@
   opacity: 0;
   transition: all 0.6s ease;
   pointer-events: none;
-  z-index: 10; /* Above background (1), below vinyl (20) and waves (16) */
+  z-index: 2;
 }
 
 /* Show blur when vinyl is hovered */
@@ -35,8 +35,23 @@
 
 /* Event grid */
 .eventGrid {
+  margin-left: 25%;
+  padding: 2rem;
+  padding-top: 6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
   position: relative;
   z-index: 5;
+  transition: all 0.3s ease;
+  isolation: isolate;
+}
+
+/* Add new class for when vinyl is hovered */
+.eventGrid.behindVinyl {
+  z-index: 1;
+  opacity: 0.8;
+  transition: all 0.3s ease;
 }
 
 /* Vinyl and categories */
@@ -55,7 +70,7 @@
 
 /* Modal */
 .modal {
-  z-index: 30;
+  z-index: 50;
 }
 
 /* Sound wave */
@@ -69,7 +84,7 @@
   gap: 2px;
   height: 175px;
   width: 100vw;
-  z-index: 16;
+  z-index: 3;
   opacity: 0;
   transition: opacity 0.5s ease;
   padding: 0;
@@ -247,7 +262,7 @@
   left: 38%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 21;
+  z-index: 4;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -296,19 +311,6 @@
   text-shadow: 0 0 10px rgba(255,69,0,0.5);
 }
 
-/* Update Event Grid Styles */
-.eventGrid {
-  margin-left: 25%;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  position: relative;
-  z-index: 1;
-  transition: opacity 0.3s ease;
-  isolation: isolate;
-}
-
 /* Optional: Slightly dim the events when vinyl is expanded */
 .vinyl.expanded ~ .eventGrid {
   opacity: 0.8;
@@ -325,7 +327,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 4;
+  z-index: 50;
 }
 
 .modalContent {
@@ -457,7 +459,7 @@
   left: 5%; /* Adjust to fit next to the triangle */
   top: 50%;
   transform: translateY(-50%);
-  z-index: 21;
+  z-index: 4;
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -569,7 +571,7 @@
   /* Adjust event grid for mobile */
   .eventGrid {
     margin-left: 0;
-    margin-top: 200px;
+    margin-top: 240px; /* Increase top margin for mobile */
     padding: 1rem;
     grid-template-columns: 1fr;
   }
