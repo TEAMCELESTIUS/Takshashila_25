@@ -4,14 +4,10 @@
 /* Base container */
 .container {
   min-height: 100vh;
-  background: linear-gradient(
-    135deg, 
-    #004953 0%,
-    #004d40 50%,
-    #00695c 100%
-  );
+  width: 100vw;
+  background: linear-gradient(135deg, #004953 0%, #004d40 50%, #00695c 100%);
   color: #fff;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   z-index: 1;
 }
@@ -35,32 +31,32 @@
 
 /* Event grid */
 .eventGrid {
-  margin-left: 25%;
+  margin-left: 400px;
   padding: 2rem;
   padding-top: 6rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2rem;
   position: relative;
   z-index: 5;
+  width: calc(100% - 400px);
+  max-width: 1400px;
   transition: all 0.3s ease;
-  isolation: isolate;
 }
 
 /* Add new class for when vinyl is hovered */
 .eventGrid.behindVinyl {
   z-index: 1;
   opacity: 0.8;
-  transition: all 0.3s ease;
 }
 
 /* Vinyl and categories */
 .vinylWrapper {
   position: fixed;
   left: 0;
-  top: 0;
-  bottom: 0;
-  width: 45%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 600px;
   z-index: 20;
   pointer-events: none;
   display: flex;
@@ -93,11 +89,11 @@
 /* Make vinyl the trigger */
 .vinyl {
   position: absolute;
-  left: -85%;
+  left: -600px;
   top: 50%;
   transform: translateY(-50%);
-  width: 52vw;
-  height: 52vw;
+  width: 800px;
+  height: 800px;
   border-radius: 50%;
   background: linear-gradient(30deg, #000000, #1a1a1a);
   box-shadow: 0 0 50px rgba(0,0,0,0.5);
@@ -105,9 +101,6 @@
   cursor: pointer;
   pointer-events: auto;
   z-index: 3;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateY(-50%) translateZ(0);
 }
 
 .vinyl::before {
@@ -229,14 +222,13 @@
 .vinyl:hover,
 .vinylWrapper:hover .vinyl,
 .categoriesContainer:hover ~ .vinyl {
-  left: -40%;
-  transform: translateY(-50%) translateZ(0);
+  left: -225px;
+  transform: translateY(-50%);
   background: linear-gradient(45deg, #000000, #1a1a1a);
   box-shadow: 
     0 0 50px rgba(0,0,0,0.5),
     inset 0 0 50px rgba(255,255,255,0.1);
   animation: rotateVinyl 10s linear infinite;
-  will-change: transform;
 }
 
 /* Keep everything active while categories are being interacted with */
@@ -246,20 +238,19 @@
 }
 
 .categoriesContainer:hover ~ .vinyl {
-  left: -40%;
-  transform: translateY(-50%) translateZ(0);
+  left: -225px;
+  transform: translateY(-50%);
   background: linear-gradient(45deg, #000000, #1a1a1a);
   box-shadow: 
     0 0 50px rgba(0,0,0,0.5),
     inset 0 0 50px rgba(255,255,255,0.1);
   animation: rotateVinyl 10s linear infinite;
-  will-change: transform;
 }
 
 /* Categories container */
 .categoriesContainer {
   position: absolute;
-  left: 38%;
+  left: 153px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 4;
@@ -273,10 +264,8 @@
 .categories {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   text-shadow: 0 0 10px rgba(255,255,255,0.2);
-  transform: translateX(0);
-  transition: transform 0.3s ease;
 }
 
 /* Animate categories in when vinyl is expanded */
@@ -289,12 +278,12 @@
   background: none;
   border: none;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   opacity: 0.7;
-  padding: 5px 15px;
-  border-radius: 20px;
+  padding: 4px 12px;
+  border-radius: 16px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -347,8 +336,8 @@
   height: 100%;
   border-radius: 4px;
   transform-origin: bottom;
-  animation: soundWave 1.2s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.02s);
+  animation: soundWave 2.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.04s);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
   will-change: transform;
   transform: scaleY(0.05) translateZ(0);
@@ -368,10 +357,10 @@
 
 @keyframes rotateVinyl {
   from {
-    transform: translateY(-50%) translateZ(0) rotate(0deg);
+    transform: translateY(-50%) rotate(0deg);
   }
   to {
-    transform: translateY(-50%) translateZ(0) rotate(360deg);
+    transform: translateY(-50%) rotate(360deg);
   }
 }
 
@@ -394,14 +383,13 @@
 
 /* Update vinyl and categories interaction */
 .vinylWrapper:hover .vinyl {
-  left: -40%;
-  transform: translateY(-50%) translateZ(0);
+  left: -225px;
+  transform: translateY(-50%);
   background: linear-gradient(45deg, #000000, #1a1a1a);
   box-shadow: 
     0 0 50px rgba(0,0,0,0.5),
     inset 0 0 50px rgba(255,255,255,0.1);
   animation: rotateVinyl 10s linear infinite;
-  will-change: transform;
 }
 
 .vinylWrapper:hover .categoriesContainer {
@@ -434,11 +422,7 @@
   transform: translate(-50%, -50%);
   width: 24%;
   height: 24%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 2;
-  transition: all 0.5s ease;
 }
 
 /* Remove the counter-rotation animation */
@@ -456,7 +440,7 @@
 /* Static categories container */
 .staticCategories {
   position: absolute;
-  left: 5%; /* Adjust to fit next to the triangle */
+  left: 1%;
   top: 50%;
   transform: translateY(-50%);
   z-index: 4;
@@ -464,20 +448,21 @@
   visibility: visible;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
-  text-align: center; /* Center-align text */
-  font-family: 'Pacifico', cursive; /* Apply creative font */
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  scale: 0.85; /* Added to reduce overall size */
 }
 
 /* Static category styles */
 .staticCategory {
   display: block;
   color: #fff;
-  font-size: 1.2rem;
-  font-weight: bold; /* Make text bold */
-  margin: 10px 0;
+  font-size: 1rem; /* Reduced from 1.2rem */
+  font-weight: bold;
+  margin: 8px 0; /* Reduced from 10px */
   transition: all 0.3s ease;
-  opacity: 0.45; /* Default opacity for non-active items */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+  opacity: 0.45;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   will-change: transform, opacity;
   transform: translateZ(0);
 }
@@ -508,15 +493,9 @@
 @media (max-width: 768px) {
   /* Adjust vinyl size and position for mobile */
   .vinylWrapper {
-    position: fixed;
-    width: 100%;
-    height: 180px;
+    position: sticky;
     top: 0;
-    bottom: auto;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    height: 180px;
   }
 
   .vinyl {
@@ -642,4 +621,125 @@
     top: 140px;
     height: 80px;
   }
+}
+
+/* Breakpoints for different screen sizes */
+@media screen and (max-width: 1920px) {
+  .vinylWrapper {
+    width: 800px;
+  }
+  .vinyl {
+    width: 800px;
+    height: 800px;
+    left: -600px;
+  }
+  .vinylWrapper:hover .vinyl {
+    left: -305px;
+  }
+  .eventGrid {
+    margin-left: 500px;
+    width: calc(100% - 500px);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .categoriesContainer {
+    left: 209px;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .vinylWrapper {
+    width: 700px;
+  }
+  .vinyl {
+    width: 700px;
+    height: 700px;
+    left: -525px;
+  }
+  .vinylWrapper:hover .vinyl {
+    left: -265px;
+  }
+  .eventGrid {
+    margin-left: 450px;
+    width: calc(100% - 450px);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .categoriesContainer {
+    left: 181px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .vinylWrapper {
+    width: 600px;
+  }
+  .vinyl {
+    width: 600px;
+    height: 600px;
+    left: -450px;
+  }
+  .vinylWrapper:hover .vinyl {
+    left: -225px;
+  }
+  .eventGrid {
+    margin-left: 400px;
+    width: calc(100% - 400px);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .categoriesContainer {
+    left: 153px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .vinylWrapper {
+    width: 550px;
+  }
+  .vinyl {
+    width: 550px;
+    height: 550px;
+    left: -412px;
+  }
+  .vinylWrapper:hover .vinyl {
+    left: -205px;
+  }
+  .eventGrid {
+    margin-left: 350px;
+    width: calc(100% - 350px);
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .categoriesContainer {
+    left: 139px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .vinylWrapper {
+    width: 500px;
+  }
+  .vinyl {
+    width: 500px;
+    height: 500px;
+    left: -375px;
+  }
+  .vinylWrapper:hover .vinyl {
+    left: -185px;
+  }
+  .eventGrid {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .categoriesContainer {
+    left: 125px;
+  }
+}
+
+/* Keep the no scrollbar class for the popup content */
+.noScrollbar {
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.noScrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
 }

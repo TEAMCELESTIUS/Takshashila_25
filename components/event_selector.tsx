@@ -31,6 +31,7 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
   const [isMobile, setIsMobile] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isVinylHovered, setIsVinylHovered] = useState(false)
+  const vinylWrapperRef = useRef<HTMLDivElement>(null)
 
   const categories = useMemo(() => ['All', 'Technical', 'Non-Technical', 'Workshops'], [])
 
@@ -94,7 +95,7 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
           style={{
             '--i': index,
             '--random-height': initialHeight,
-            animationDuration: `${0.9 + Math.random() * 0.6}s`,
+            animationDuration: `${2.0 + Math.random() * 1.0}s`,
             transform: `scaleY(${Math.random() * 0.1 + 0.05})`,
           } as React.CSSProperties}
           onAnimationIteration={() => {
@@ -129,6 +130,16 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
     return [categories[activeIndex], ...before, ...after];
   }, [active, categories]);
 
+  // Update vinyl position on scroll
+  useEffect(() => {
+    if (vinylWrapperRef.current) {
+      // Keep it fixed at 50% of viewport height
+      vinylWrapperRef.current.style.position = 'fixed';
+      vinylWrapperRef.current.style.top = '50%';
+      vinylWrapperRef.current.style.transform = 'translateY(-50%)';
+    }
+  }, []); // Only run once on mount
+
   if (!isClient) {
     return null;
   }
@@ -136,6 +147,7 @@ const Eventsdisc: React.FC<EventsdiscProps> = ({ events }) => {
   return (
     <div className={styles.container}>
       <div 
+        ref={vinylWrapperRef}
         className={styles.vinylWrapper}
         onMouseEnter={() => {
           if (!isMobile) {
