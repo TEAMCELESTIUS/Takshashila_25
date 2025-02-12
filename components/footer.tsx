@@ -1,6 +1,11 @@
 import { FaInstagram, FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
+  const pathname = usePathname();
+  const isTeamPage = pathname === '/team';
+
   return (
     <section className="relative z-50 bg-black/40 backdrop-blur-md py-16 mt-20" data-scroll-section>
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -91,6 +96,18 @@ const Footer = () => {
           © {new Date().getFullYear()} Takshashila. All rights reserved.
         </p>
       </div>
+
+      {/* Meet the Team button - only show if not on team page */}
+      {!isTeamPage && (
+        <div className="absolute bottom-8 right-8">
+          <Link href="/team" className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 rounded-full transition-colors duration-300 flex items-center gap-2">
+            <span>Meet the Team</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </Link>
+        </div>
+      )}
     </section>
   );
 };
