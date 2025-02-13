@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import teamData from "./teamData";
 
 interface TeamMemberProps {
@@ -46,10 +47,12 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, image, linkedin, gi
     <div className="relative overflow-hidden rounded-lg shadow-lg group">
       {/* Image */}
       <div className="w-full h-72 overflow-hidden">
-        <img
+        <Image
           src={image}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          layout="fill"
+          objectFit="cover"
+          className="transition-transform duration-500 group-hover:scale-110"
         />
       </div>
 

@@ -23,7 +23,7 @@ const AboutSection: React.FC = () => {
               className="text-4xl text-white relative pb-4 after:content-[''] 
                         after:absolute after:bottom-0 after:left-0 after:w-16 after:h-1 after:bg-green-600 font-lexend"
             >
-              CIT
+              ABOUT CHENNAI INSTITUTE OF TECHNOLOGY
             </h2>
             <div className="space-y-4 text-white/90 font-lexend-deca">
               <p>
@@ -65,7 +65,7 @@ const AboutSection: React.FC = () => {
               className="text-4xl font-lexend text-white relative pb-4 after:content-[''] 
                         after:absolute after:bottom-0 after:left-0 after:w-16 after:h-1 after:bg-green-600"
             >
-              TAKSHASHILA
+              ABOUT TAKSHASHILA
             </h2>
             <div className="space-y-4 text-white/90 font-lexend-deca">
               <p>

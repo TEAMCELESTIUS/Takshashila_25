@@ -70,7 +70,7 @@ export default function EventCard({
           transition={{ duration: 0.3 }}
         >
           <div>
-            <h3 className="text-2xl text-white relative pb-4 font-lexend">{title}</h3>
+            
             <p className="text-white mb-2">{date}</p>
             <p className="text-white mb-2">{location}</p>
             <p className="text-white">{description}</p>
