@@ -34,18 +34,13 @@ export default function NavBar() {
           <Link href="/" className="text-white hover:text-gray-300 text-lg font-lexend">
             Home
           </Link>
-          <Link href="#about" className="text-white hover:text-gray-300 text-lg font-lexend">
-            About
-          </Link>
           <Link href="Events" className="text-white hover:text-gray-300 text-lg font-lexend">
             Events
           </Link>
           <Link href="Cart" className="text-white hover:text-gray-300 text-lg font-lexend">
             Cart
           </Link>
-          <Link href="#contact" className="text-white hover:text-gray-300 text-lg font-lexend">
-            Contact
-          </Link>
+          
         </div>
 
         {/* Mobile Hamburger Icon */}
