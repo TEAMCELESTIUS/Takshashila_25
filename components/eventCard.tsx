@@ -80,6 +80,7 @@ export default function EventCard({
           animate={{ x: isHovered ? 0 : "-100%" }}
           transition={{ duration: 0.3 }}
         >
+
           <div className="flex flex-col gap-2">
             <p className="text-white">{date}</p>
             <p className="text-white">{location}</p>
@@ -110,6 +111,7 @@ export default function EventCard({
                 ))}
               </span>
             </button>
+
           </div>
         </motion.div>
         <div

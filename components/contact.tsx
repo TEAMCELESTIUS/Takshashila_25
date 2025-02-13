@@ -4,9 +4,8 @@ const contactInfo = {
   email: "info@citchennai.net",
   phone: "+91 44-2628 9999",
   address: {
-    line1: "SH-113, Sarathy Nagar,",
-    line2: "Pudupedu Kundrathur,",
-    line3: "Sriperumbudur Main Road,",
+    line1: "Sarathy Nagar,",
+    line2: "Kundrathur,",
     city: "Chennai, Tamil Nadu",
     pin: "PIN : 600069"
   },
@@ -51,7 +50,6 @@ const Contact = () => {
                 <div className="space-y-1">
                   <p className="text-lg">{contactInfo.address.line1}</p>
                   <p className="text-lg">{contactInfo.address.line2}</p>
-                  <p className="text-lg">{contactInfo.address.line3}</p>
                   <p className="text-lg">{contactInfo.address.city}</p>
                   <p className="text-lg font-semibold">{contactInfo.address.pin}</p>
                 </div>
