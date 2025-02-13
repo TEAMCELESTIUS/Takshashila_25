@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, ReactNode } from "react"
+import { useEffect, ReactNode, useState } from "react"
 import "locomotive-scroll/dist/locomotive-scroll.css"
 
 interface LocomotiveScrollProps {
@@ -20,22 +20,33 @@ export default function LocomotiveScrollProvider({
     lerp: 0.1
   } 
 }: LocomotiveScrollProps) {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    // Ensure this runs only on the client
-    if (typeof window === "undefined") return
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
+    let locoScroll: any = null;
 
     const initLocomotiveScroll = async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default
       const scrollContainer = document.querySelector("[data-scroll-container]") as HTMLElement
 
-      if (!scrollContainer) return
+      if (!scrollContainer) return;
 
-      const locoScroll = new LocomotiveScroll({
+      // Cleanup any existing instance
+      if (locoScroll) {
+        locoScroll.destroy();
+      }
+
+      locoScroll = new LocomotiveScroll({
         el: scrollContainer,
         ...options,
-        
         smartphone: { smooth: false }
-      })
+      });
 
       // Handle anchor links
       const handleAnchorClick = (event: MouseEvent) => {
@@ -57,21 +68,24 @@ export default function LocomotiveScrollProvider({
         link.addEventListener("click", handleAnchorClick)
       })
 
-      // Cleanup
-      return () => {
-        anchorLinks.forEach(link => {
-          link.removeEventListener("click", handleAnchorClick)
-        })
-        locoScroll.destroy()
-      }
+      // Force a refresh after initialization
+      setTimeout(() => {
+        locoScroll.update();
+      }, 500);
     }
 
-    initLocomotiveScroll()
-  }, [options])
+    initLocomotiveScroll();
+
+    return () => {
+      if (locoScroll) {
+        locoScroll.destroy();
+      }
+    }
+  }, [options, isClient]);
 
   return (
     <div data-scroll-container>
       {children}
     </div>
-  )
+  );
 } 
