@@ -22,10 +22,17 @@
   font-family: var(--font-lexend-deca), system-ui, sans-serif;
 }
 
+html{
+  overflow: auto !important;
+  height: auto !important;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-lexend-exa), system-ui, sans-serif;
+  overflow: auto !important;
+  height: auto !important;
 }
 
 @keyframes float {
