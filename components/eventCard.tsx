@@ -37,6 +37,13 @@ export default function EventCard({
     }
   }
 
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    const target = e.relatedTarget as HTMLElement | null;
+    if (!target?.closest?.(".hover-content")) {
+      setIsHovered(false);
+    }
+  };
+
   return (
     <>
       <motion.div
@@ -49,12 +56,7 @@ export default function EventCard({
           transition: "z-index 0.3s, transform 0.3s",
         }}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={(e) => {
-          const relatedTarget = e.relatedTarget as HTMLElement
-          if (!relatedTarget?.closest(".hover-content")) {
-            setIsHovered(false)
-          }
-        }}
+        onMouseLeave={handleMouseLeave}
         onClick={() => setShowPopup(true)}
       >
         <Image
