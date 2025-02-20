@@ -98,35 +98,36 @@ export default function EventCard({
             )}
           </div>
           <div className="mt-4">
-            <button
-              className="relative overflow-hidden group bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              onClick={(e) => {
-                e.stopPropagation()
-                setShowPopup(true)
-              }}
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+          <button
+  className="relative overflow-hidden group bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+  onClick={(e) => {
+    e.stopPropagation();
+    setShowPopup(true);
+  }}
+>
+  <span className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 
-              <span className="absolute inset-0 rounded-lg">
-                <span className="absolute inset-[-2px] rounded-lg overflow-hidden">
-                  <span className="absolute inset-[-4px] bg-gradient-to-r from-emerald-400/0 via-emerald-400/70 to-emerald-400/0 animate-[border-move_2s_linear_infinite]"></span>
-                </span>
-              </span>
+  <span className="absolute inset-0 rounded-lg">
+    <span className="absolute inset-[-2px] rounded-lg overflow-hidden">
+      <span className="absolute inset-[-4px] bg-gradient-to-r from-emerald-400/0 via-emerald-400/70 to-emerald-400/0 animate-[border-move_2s_linear_infinite]"></span>
+    </span>
+  </span>
 
-              <span className="inline-block relative z-10">
-                {"VIEW MORE".split("").map((letter, index) => (
-                  <motion.span
-                    key={index}
-                    className="letter inline-block"
-                    initial={{ rotateX: 0, opacity: 1 }}
-                    animate={{ rotateX: isHovered ? 360 : 0, opacity: 1 }}
-                    transition={{ duration: 1.0, delay: index * 0.1 }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </span>
-            </button>
+  <span className="inline-block relative z-10">
+    {"VIEW MORE".split("").map((letter, index) => (
+      <motion.span
+        key={index}
+        className="letter inline-block"
+        initial={{ rotateX: 0, opacity: 1 }}
+        animate={{ rotateX: isHovered ? 360 : 0, opacity: 1 }}
+        transition={{ duration: 1.0, delay: index * 0.1 }}
+      >
+        {letter}
+      </motion.span>
+    ))}
+  </span>
+</button>
+
           </div>
         </motion.div>
         <div
