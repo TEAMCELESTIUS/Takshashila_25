@@ -99,7 +99,7 @@ come by often.`,
     category: "Technical",
     date: "March 17, 2024",
     location: "Creative Space",
-    image: "/tech/TRIALTRACKS.png",
+    image: "/tech/TRIAL TRACKS.png",
     description: `Where precision meets speed, steer your way to the end-line. Stay on track and you'll stay in the
 game. Wander off track and you'll have to walk out. Gather your courage and components! Are
 you up for this rip-roaring race where only the fast and furious finishes first?`,
@@ -154,7 +154,7 @@ analytical thinking and cyber skills. Are you ready to crack the code?`,
     category: "Non-Technical",
     date: "March 17, 2024",
     location: "Workshop Lab",
-    image: "/nontech/SOLODANCE.png",
+    image: "/nontech/solodance (2).png",
     description: `Do you have what it takes to put on a one-man show? On the dance floor, you are in control of
 the rhythm. Set yourself loose and let the music move you. Swing and sway to steal everyone's
 hearts!.`,
@@ -214,7 +214,7 @@ celebration meticulously crafted to awaken the dormant inner child in every atte
     category: "Non-Technical",
     date: "March 18, 2024",
     location: "Seminar Hall",
-    image: "/nontech/ANIMEGAUNTLET.png",
+    image: "/nontech/Graphitely.jpeg",
     description: `Where every stroke tells a story, unlock the creativity within and unleash your vision. Sketch
 your way to glory 'cause the canvas is calling for a creative masterpiece`,
     registrationLink: "#"
@@ -260,7 +260,7 @@ short film that will enthrall the audience and leave them in awe of your creativ
     category: "Non-Technical",
     date: "March 18, 2024",
     location: "Seminar Hall",
-    image: "/nontech/FILMFANATICS.jpg",
+    image: "/nontech/solo singing.jpg",
     description: `Music is felt rather than heard. With your beguiling voice, you can touch people's hearts and
 enlighten their souls. After all, music is much more than just a tune.`,
     registrationLink: "#"
@@ -271,7 +271,7 @@ enlighten their souls. After all, music is much more than just a tune.`,
     category: "Non-Technical",
     date: "March 15, 2024",
     location: "Workshop Lab",
-    image: "/nontech/FRAMESPOT.jpg",
+    image: "/nontech/group singing.jpg",
     description: `Music is a part of our everyday lives. From the hammering of our hearts to the shrieking of the
 cars, it's within us and around us. Amidst the many catastrophic sounds, will your group's
 crooning be crowned the best?
@@ -284,7 +284,7 @@ Theme: open theme`,
     category: "Non-Technical",
     date: "March 16, 2024",
     location: "Workshop Lab",
-    image: "/nontech/ONAIR.jpg",
+    image: "/nontech/TK TV.jpg",
     description: `Do you have a dream of appearing on TV? Ever wished you could be the star of your own
 programme? Are your acting and marketing abilities up to par? You have a platform to fulfill
 your fantasies and steal the show, thanks to TK TV!`,
@@ -296,7 +296,7 @@ your fantasies and steal the show, thanks to TK TV!`,
     category: "Non-Technical",
     date: "March 17, 2024",
     location: "Workshop Lab",
-    image: "/nontech/CONNECTIONMUSIC.jpg",
+    image: "/nontech/ONAIR.jpg",
     description: `Radio affects most intimately, person to person, offering a world of unspoken communication
 between the writer- speaker and listener.
 Step into the spotlight, grab the microphone, take a moment, and be a part of the legacy.`,
@@ -319,7 +319,7 @@ the fervor and magnificence that are rife in our campus!`,
     category: "Non-Technical",
     date: "March 15, 2024",
     location: "Workshop Lab",
-    image: "/nontech/FILMFANATICS.jpg",
+    image: "/nontech/stress interview (1).jpg",
     description: `Just like mentally strong people, we must be able to thrive regardless of any added tension. We
 have to put our stress in perspective, replace negative thoughts with positive ones and be proud
 of our achievements`,
@@ -342,7 +342,7 @@ desirable treasure to acquire. Treasure Hunt makes better stories when there's t
     category: "Non-Technical",
     date: "March 17, 2024",
     location: "Workshop Lab",
-    image: "/nontech/PUBG.png",
+    image: "/nontech/suprise.png",
     description: `Whether you're an adventure seeker or just looking for a unique and exciting experience, our
 surprise event is the perfect destination. With the element of surprise at every turn, our event
 promises to be an experience like no other. We can't reveal too much just yet, but rest assured
@@ -366,7 +366,7 @@ strategy and rules. So gear up for the battle, prepare and clash in the ultimate
     category: "Non-Technical",
     date: "March 15, 2024",
     location: "Workshop Lab",
-    image: "/nontech/ANIMEGAUNTLET.png",
+    image: "/nontech/world.jpg",
     description: `Prove your anime prowess in this epic anime quiz! From Naruto's hidden jutsus to the heroic
 quirks of My Hero Academia, cover everything you need to prove yourself as a true anime fan.
 Gather your nakama, channel your inner anime protagonist, and let's see who will emerge as the

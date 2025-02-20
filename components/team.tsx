@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import teamData from "./teamData";
+import teamData from "../lib/teamData";
 import { FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 interface TeamMemberProps {

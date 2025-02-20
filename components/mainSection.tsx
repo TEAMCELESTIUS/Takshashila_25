@@ -15,8 +15,13 @@ const MainSection = () => {
     if (!video) return;
 
     const handleTimeUpdate = () => {
-      const progress = (video.currentTime / video.duration) * 100;
-      setProgress(progress);
+      if (isMobile) {
+        // On mobile, set progress to 100 immediately after video starts
+        setProgress(100);
+      } else {
+        const progress = (video.currentTime / video.duration) * 100;
+        setProgress(progress);
+      }
     };
 
     const handleVideoEnd = () => {
@@ -25,6 +30,11 @@ const MainSection = () => {
 
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleVideoEnd);
+    
+    // Set initial progress for mobile
+    if (isMobile) {
+      setProgress(100);
+    }
     
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate);
@@ -35,11 +45,11 @@ const MainSection = () => {
   // Calculate final animation values
   const finalScale = 1;
   const finalY = 0;
-  const currentScale = progress >= 100 ? finalScale : 0.3 + (Math.min(progress, 100) / 100) * 0.7;
-  const currentY = progress >= 100 ? finalY : 100 - Math.min(progress, 100);
+  const currentScale = isMobile ? finalScale : (progress >= 100 ? finalScale : 0.3 + (Math.min(progress, 100) / 100) * 0.7);
+  const currentY = isMobile ? finalY : (progress >= 100 ? finalY : 100 - Math.min(progress, 100));
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className={`relative h-screen flex items-center justify-center overflow-hidden ${isMobile ? 'touch-none' : ''}`}>
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
         <video
