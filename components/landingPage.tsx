@@ -1,11 +1,11 @@
 "use client"
+import { useEffect, useState, useRef } from 'react';
 import AboutUs from '../components/aboutUs';
 import NavBar from '../components/navBar';
 // import SponsorSlider from '../components/SponsorSlider';
 import Footer from '../components/footer';
 import LocomotiveScrollProvider from '@/components/locomotiveScroll';
 import InteractiveCursor from '@/components/interactiveCursor';
-import { useEffect, useState } from 'react';
 import Contact from '@/components/contact';
 import MainSection from '@/components/mainSection';
 import EventRoller from './eventRoller';
@@ -14,15 +14,21 @@ import { isMobile } from 'react-device-detect';
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [showNav, setShowNav] = useState(true);
   const [videoSrc, setVideoSrc] = useState('');
 
   useEffect(() => {
     // Set video source based on device type
-    setVideoSrc(isMobile ? '/footage/landingscreen_mob.mov' : '/footage/landingscreen_lap.mov');
+    setVideoSrc(isMobile ? '/TK_EDIT_ROZX.mp4' : '/TK_EDIT_ROZX.mp4');
 
     const handleScroll = () => {
-      const isScrolled = window.scrollY > window.innerHeight;
-      setScrolled(isScrolled);
+      const scrollPosition = window.scrollY;
+      const mainSection = document.querySelector('section');
+      
+      if (mainSection) {
+        const mainSectionHeight = mainSection.offsetHeight;
+        setShowNav(scrollPosition <= mainSectionHeight);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -42,17 +48,29 @@ export default function Home() {
       {/* Subtle overlay for better content visibility */}
       <div className="absolute inset-0 bg-black/50" />
 
-      {/* Content */}
-      <div className="relative z-10">
-        <NavBar />
+      <div className="relative">
+        {/* NavBar with lower z-index */}
+        <div className={`fixed w-full top-0 z-10 transition-all duration-500 ${
+          showNav ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
+        }`}>
+          <NavBar />
+        </div>
+
         <div className="flex flex-col" data-scroll-container>
-          <MainSection />
-          <AboutUs />
-          <EventRoller/>
-          {/* <SponsorSlider /> */}
-          <Contact />
-          <CountdownSection />
-          <Footer />
+          {/* MainSection with normal z-index */}
+          <div className="relative z-0">
+            <MainSection />
+          </div>
+          
+          {/* Other sections with higher z-index */}
+          <div className="relative z-0">
+            <AboutUs />
+            <EventRoller/>
+            {/* <SponsorSlider /> */}
+            <Contact />
+            <CountdownSection />
+            <Footer />
+          </div>
         </div>
       </div>
     </div>

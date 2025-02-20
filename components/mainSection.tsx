@@ -8,7 +8,7 @@ import { isMobile } from 'react-device-detect';
 const MainSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
-  const videoSrc = isMobile ? '/footage/landingscreen_mob.mov' : '/footage/landingscreen_lap.mov';
+  const videoSrc = isMobile ? '//TK_EDIT_ROZX.mp4' : '/TK_EDIT_ROZX.mp4';
 
   useEffect(() => {
     const video = videoRef.current;
@@ -59,7 +59,9 @@ const MainSection = () => {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
           src={videoSrc}
-        />
+        >
+          <source src="/footage/tklife1.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
 
@@ -69,16 +71,22 @@ const MainSection = () => {
         initial={{ 
           opacity: 0, 
           scale: 0.3,
-          y: 100
+          z: -100,  // Start from behind
+          y: 100    // Start from below
         }}
         animate={{ 
           opacity: Math.min(1, progress / 50),
-          scale: currentScale,
-          y: currentY
+          scale: 0.3 + (progress / 100) * 0.7,
+          z: -100 + progress,  // Move forward
+          y: Math.max(0, 100 - progress)  // Move up
         }}
         transition={{ 
-          duration: 0.5,
-          ease: "linear"
+          duration: 0.8,
+          ease: "easeOut"
+        }}
+        style={{
+          perspective: "1000px",
+          transformStyle: "preserve-3d"
         }}
       >
         <div className="w-fit h-fit">

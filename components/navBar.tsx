@@ -17,7 +17,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="fixed left-0 right-0 z-[100] bg-opacity-50 h-20">
+    <nav className="fixed left-0 right-0 z-[100] bg-opacity-60 h-20 bg-black">
       <div className="max-w-7xl mx-auto px-5 py-5  flex items-center  justify-between ">
         {/* Left Logo */}
         <div className="flex items-center space-x-2">
@@ -25,8 +25,8 @@ export default function NavBar() {
                     <Image
                       src="/tk25-logo.svg"
                       alt="Icon"
-                      width={35}
-                      height={35}
+                      width={40}
+                      height={40}
                     />
                   </div>
           
