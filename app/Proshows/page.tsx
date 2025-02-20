@@ -21,23 +21,23 @@ interface ProShow {
 const proshows: ProShow[] = [
   {
     id: 1,
-    title: "DJ Night",
-    artist: "DJ Artist Name",
+    title: "CIDA",
+    artist: "CIT Digital Awards",
     date: "Day 1",
     time: "7:00 PM",
     venue: "Main Ground",
     image: "/1.png",
-    description: "Get ready for an electrifying night of music and dance with our spectacular DJ performance."
+    description: " and dance with our spectacular DJ performance."
   },
   {
     id: 2,
-    title: "Band Performance",
-    artist: "Band Name",
+    title: "Music Concert",
+    artist: "Yuvan Shankar Raja",
     date: "Day 2",
     time: "6:30 PM",
-    venue: "Auditorium",
-    image: "/1.png",
-    description: "Experience the magic of live music with an amazing performance by one of India's top bands."
+    venue: "Main Ground",
+    image: "/u1back.png",
+    description: "Get ready for an electrifying night of  music with an amazing performance by Yuvan."
   },
   {
     id: 3,
