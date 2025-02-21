@@ -26,6 +26,7 @@ export default function LocomotiveScrollProvider({
     lerp: 0.1
   } 
 }: LocomotiveScrollProps) {
+  const [locomotiveInstance, setLocomotiveInstance] = useState<ScrollInstance | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -35,62 +36,88 @@ export default function LocomotiveScrollProvider({
   useEffect(() => {
     if (!isClient) return;
 
-    let locomotiveInstance: ScrollInstance | null = null;
+    let instance: ScrollInstance | null = null;
 
     const initLocomotiveScroll = async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default
-      const scrollContainer = document.querySelector("[data-scroll-container]") as HTMLElement
+      try {
+        const LocomotiveScroll = (await import("locomotive-scroll")).default
+        const scrollContainer = document.querySelector("[data-scroll-container]") as HTMLElement
 
-      if (!scrollContainer) return;
-
-      // Cleanup any existing instance
-      if (locomotiveInstance) {
-        locomotiveInstance.destroy();
-      }
-
-      locomotiveInstance = new LocomotiveScroll({
-        el: scrollContainer,
-        ...options,
-        smartphone: { smooth: false }
-      }) as ScrollInstance;
-
-      // Handle anchor links
-      const handleAnchorClick = (event: MouseEvent) => {
-        event.preventDefault()
-        const target = event.currentTarget as HTMLAnchorElement
-        const targetId = target.getAttribute("href")?.substring(1)
-        const targetElement = document.getElementById(targetId || "")
-
-        if (targetElement && locomotiveInstance) {
-          locomotiveInstance.scrollTo(targetElement, {
-            offset: 0,
-            duration: 1000,
-          })
+        if (!scrollContainer) {
+          console.warn("Scroll container not found");
+          return;
         }
+
+        // Cleanup any existing instance
+        if (locomotiveInstance) {
+          locomotiveInstance.destroy();
+        }
+
+        // Initialize with device-specific options
+        instance = new LocomotiveScroll({
+          el: scrollContainer,
+          ...options,
+          smooth: window.innerWidth > 768 ? options.smooth : false,
+          smartphone: {
+            smooth: false,
+            breakpoint: 767
+          },
+          tablet: {
+            smooth: false,
+            breakpoint: 1024
+          }
+        }) as ScrollInstance;
+
+        setLocomotiveInstance(instance);
+
+        // Handle anchor links
+        const handleAnchorClick = (event: MouseEvent) => {
+          event.preventDefault()
+          const target = event.currentTarget as HTMLAnchorElement
+          const targetId = target.getAttribute("href")?.substring(1)
+          const targetElement = document.getElementById(targetId || "")
+
+          if (targetElement && instance) {
+            instance.scrollTo(targetElement, {
+              offset: 0,
+              duration: 1000,
+            })
+          }
+        }
+
+        const anchorLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
+        anchorLinks.forEach(link => {
+          link.addEventListener("click", handleAnchorClick)
+        })
+
+        // Force multiple updates after initialization
+        setTimeout(() => {
+          instance?.update();
+        }, 500);
+
+        setTimeout(() => {
+          instance?.update();
+        }, 1000);
+      } catch (error) {
+        console.error("Error initializing Locomotive Scroll:", error);
       }
-
-      const anchorLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
-      anchorLinks.forEach(link => {
-        link.addEventListener("click", handleAnchorClick)
-      })
-
-      // Force a refresh after initialization
-      setTimeout(() => {
-        locomotiveInstance?.update();
-      }, 500);
     }
 
-    initLocomotiveScroll();
+    // Add a small delay before initialization
+    const timer = setTimeout(() => {
+      initLocomotiveScroll();
+    }, 100);
 
     return () => {
-      if (locomotiveInstance) {
-        locomotiveInstance.destroy();
+      clearTimeout(timer);
+      if (instance) {
+        instance.destroy();
       }
     }
   }, [options, isClient]);
 
   return (
-    <div data-scroll-container>
+    <div data-scroll-container className="relative">
       {children}
     </div>
   );

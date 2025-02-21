@@ -8,15 +8,22 @@ import { isMobile } from 'react-device-detect';
 const MainSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoSrc = isMobile ? '/footage/landingscreen_mob.mov' : '/footage/landingscreen_lap.mov';
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    const handleLoadedData = () => {
+      setIsVideoLoaded(true);
+      if (isMobile) {
+        setProgress(100);
+      }
+    };
+
     const handleTimeUpdate = () => {
       if (isMobile) {
-        // On mobile, set progress to 100 immediately after video starts
         setProgress(100);
       } else {
         const progress = (video.currentTime / video.duration) * 100;
@@ -28,15 +35,12 @@ const MainSection = () => {
       video.pause();
     };
 
+    video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleVideoEnd);
     
-    // Set initial progress for mobile
-    if (isMobile) {
-      setProgress(100);
-    }
-    
     return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleVideoEnd);
     };
@@ -49,7 +53,13 @@ const MainSection = () => {
   const currentY = isMobile ? finalY : (progress >= 100 ? finalY : 100 - Math.min(progress, 100));
 
   return (
-    <section className={`relative h-screen flex items-center justify-center overflow-hidden ${isMobile ? 'touch-none' : ''}`}>
+    <section 
+      className={`relative h-screen flex items-center justify-center overflow-hidden ${
+        isMobile ? 'touch-none' : ''
+      }`}
+      data-scroll
+      data-scroll-section
+    >
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
         <video
